@@ -1,0 +1,60 @@
+#
+# Copyright 2022 Provocon.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Relies on the following Variables to be set:
+#
+# External Container Repository:
+#   DH_REGISTRY_USER
+#   DH_REGISTRY_PASSWORD
+image: docker:20.10
+
+services:
+  - docker:dind
+
+stages:
+  - image
+
+variables:
+  BASE_NAME: java
+  IMAGE_NAME: "${CI_PROJECT_NAMESPACE}/$BASE_NAME"
+  REGISTRY: "${CI_REGISTRY}"
+  REGISTRY_USER: ${CI_REGISTRY_USER}
+  REGISTRY_PASSWORD: ${CI_REGISTRY_PASSWORD}
+  LAB_NAME: "${CI_REGISTRY}/${CI_PROJECT_PATH}"
+  TAG: "11"
+
+build:
+  stage: image
+  except:
+  - tags
+  script:
+    - echo Image $IMAGE_NAME
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
+    - docker context create multi
+    - docker buildx create --use multi
+    - docker buildx build --push --platform linux/arm64/v8,linux/amd64,linux/riscv64 -t "${LAB_NAME}:$TAG" .
+    - docker buildx build --push --platform linux/arm64/v8,linux/amd64,linux/riscv64 -t "${LAB_NAME}:latest" .
+
+release:
+  stage: image
+  only:
+    - tags
+  script:
+    - echo Image $IMAGE_NAME
+    - docker login -u $DH_REGISTRY_USER -p $DH_REGISTRY_PASSWORD
+    - docker context create multi
+    - docker buildx create --use multi
+    - docker buildx build --push --platform linux/arm64/v8,linux/amd64,linux/riscv64 -t "${IMAGE_NAME}:$TAG" .
+    - docker buildx build --push --platform linux/arm64/v8,linux/amd64,linux/riscv64 -t "${IMAGE_NAME}:latest" .
