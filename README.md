@@ -1,4 +1,4 @@
-# Build Image for Launch4j with Java 11
+# Build Image for Launch4j with a suitable Java Development Kit
 
 Package Java Applications for Windows x86_64 with the Launch4j Wrapper even if
 the CI is not running on x86_64 / Intel / AMD.
@@ -12,7 +12,7 @@ In detail this image is intended for CI environments like to provides:
 
 * Debian slim
 
-* OpenJDK Java Development Kit 11
+* OpenJDK Java Development Kit 17
 
 * Launch4j
 
@@ -29,8 +29,8 @@ for feedback.
 ## Availability
 
 This container can be used via the canonical name `provocon/java`.
-Besides the tag `latest` the version tag `11` for [OpenJDK][openjdk] version 11
-should be self explanatory.
+Besides the tag `latest` the version tags `11` and `17` for [OpenJDK][openjdk]
+versions 11 and 17 should be self explanatory.
 
 
 ## Build
@@ -40,10 +40,10 @@ should be self explanatory.
 You can use the [Gradle Build Tool][gradle] and issue
 
 ```
-./gradlew -Ptag=11
+./gradlew -Ptag=17
 ```
 
-to generate the container with the tag 11. The default value for the tag 
+to generate the container with the tag 17. The default value for the tag 
 paramter is `latest`
 
 ### Manual Build
@@ -51,16 +51,16 @@ paramter is `latest`
 The further preparation of the container is accomplished using the usual:
 
 ```
-podman build -t provocon/java:11 .
+podman build -t provocon/java:17 .
 podman build -t provocon/java:latest .
-podman push provocon/java:11
+podman push provocon/java:17
 podman push provocon/java:latest
 ```
 
 ```
-docker build -t provocon/java:11 .
+docker build -t provocon/java:17 .
 docker build -t provocon/java:latest .
-docker push provocon/java:11
+docker push provocon/java:17
 docker push provocon/java:latest
 ```
 
@@ -78,6 +78,9 @@ openjdk version "11.0.17" 2022-10-18
 OpenJDK Runtime Environment (build 11.0.17+8-post-Debian-2)
 OpenJDK 64-Bit Server VM (build 11.0.17+8-post-Debian-2, mixed mode, sharing)
 ```
+
+
+## References
 
 Project icon by Ken Kistler `CC0 "Public Domain"` on 
 `https://www.publicdomainpictures.net/`
