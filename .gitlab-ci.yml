@@ -1,5 +1,5 @@
 #
-# Copyright 2022 Provocon.
+# Copyright 2022-2024 Provocon.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ variables:
   REGISTRY_USER: ${CI_REGISTRY_USER}
   REGISTRY_PASSWORD: ${CI_REGISTRY_PASSWORD}
   LAB_NAME: "${CI_REGISTRY}/${CI_PROJECT_PATH}"
-  TAG: "11"
+  TAG: "17"
 
 build:
   stage: image

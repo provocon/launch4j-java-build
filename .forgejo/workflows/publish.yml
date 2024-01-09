@@ -1,5 +1,5 @@
 #
-# Copyright 2022-2024 Martin Goellnitz.
+# Copyright 2024 Martin Goellnitz.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,18 +16,19 @@
 on:
   push:
     branches: [ master ]
-    tags: [ '*' ]
   pull_request:
     branches: [ master ]
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: codeberg.org
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: provocon
+    container:
+      image: debian:stable-slim
     permissions:
       contents: read
       packages: write
@@ -36,6 +37,10 @@ jobs:
       id-token: write
 
     steps:
+      # Docker and Node.js are not part of the base image
+      - name: Prepare Tools
+        run: apt update ; apt install -yq nodejs docker.io curl
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -55,19 +60,19 @@ jobs:
 
       # Log into registry except on PR
       # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
+      - name: Log into project registry
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.CODEBERG_USER }}
+          password: ${{ secrets.CODEBERG_TOKEN }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: https://github.com/docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
