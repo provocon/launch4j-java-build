@@ -1,5 +1,5 @@
 #
-# Copyright 2019-2023 Martin Goellnitz.
+# Copyright 2019-2024 Martin Goellnitz.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ ARG LAUNCH4J_VERSION=3.14
 
 RUN \
   apt-get update && \
-  apt-get install -yqq xz-utils curl unzip binutils-mingw-w64 openjdk-17-jdk && \
+  apt-get install -yqq xz-utils curl unzip binutils-mingw-w64 openjdk-17-jdk nodejs && \
   set -eux && \
   curl -Lfo /tmp/l4j.tgz https://netix.dl.sourceforge.net/project/launch4j/launch4j-3/${LAUNCH4J_VERSION}/launch4j-${LAUNCH4J_VERSION}-linux-x64.tgz 2> /dev/null && \
   mkdir -p /opt && \
