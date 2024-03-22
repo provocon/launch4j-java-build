@@ -11,21 +11,18 @@ least for amd64, arm64/v8, and riscv64 architectures.
 In detail, this image is intended for CI environments and provides:
 
 * Debian slim
-
 * OpenJDK Java Development Kit 17
-
 * Launch4j
-
 * Node.js
 
-The home of this repository is at [GitHub][github] with a mirror at
-[Codeberg][codeberg] and [GitLab][gitlab].
+The home for the sources to create the image lives at [Codeberg][codeberg] with
+mirrors at [GitHub][github] and [GitLab][gitlab].
 
 
 ## Feedback
 
-Please use the [issues][issues] section of this repository at [GitHub][github]
-for feedback. 
+Please use the [issues][issues] section of this repository at
+[Codeberg][codeberg] for feedback.
 
 
 ## Availability
@@ -90,7 +87,7 @@ Project icon by Ken Kistler `CC0 "Public Domain"` on
 `https://www.publicdomainpictures.net/pictures/90000/velka/desert-pipeline.jpg`
 
 [gitlabci]: https://gitlab.com/
-[issues]: https://github.com/provocon/launch4j-java-build/issues
+[issues]: https://codeberg.org/provocon/launch4j-java-build/issues
 [github]: https://github.com/provocon/launch4j-java-build
 [codeberg]: https://codeberg.org/provocon/launch4j-java-build
 [gitlab]: https://gitlab.com/provocon/launch4j-java-build
