@@ -24,7 +24,7 @@ RUN \
   echo "Set Execution Mode" && \
   set -eux && \
   echo "Load Launch4j" && \
-  curl -Lfo /tmp/l4j.tgz https://netix.dl.sourceforge.net/project/launch4j/launch4j-3/${LAUNCH4J_VERSION}/launch4j-${LAUNCH4J_VERSION}-linux-x64.tgz 2> /dev/null && \
+  curl -Lfo /tmp/l4j.tgz https://sourceforge.net/projects/launch4j/files/launch4j-3/${LAUNCH4J_VERSION}/launch4j-${LAUNCH4J_VERSION}-linux-x64.tgz/download 2> /dev/null && \
   mkdir -p /opt && \
   cd /opt && \
   tar xzf /tmp/l4j.tgz && \
